@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.wshuai.xyz/2022/01/22/Markdown/</loc>
+    <lastmod>2022-12-17</lastmod>
+  </url>
+  <url>
     <loc>https://www.wshuai.xyz/2022/01/04/test1/</loc>
     <lastmod>2022-12-17</lastmod>
   </url>
@@ -43,9 +47,5 @@
   <url>
     <loc>https://www.wshuai.xyz/2022/12/13/MathJax/</loc>
     <lastmod>2022-12-15</lastmod>
-  </url>
-  <url>
-    <loc>https://www.wshuai.xyz/2022/01/22/Markdown/</loc>
-    <lastmod>2022-12-14</lastmod>
   </url>
 </urlset> 

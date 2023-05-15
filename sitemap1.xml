@@ -2,51 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.wshuai.xyz/2022/12/14/Butterfly%E4%B8%BB%E9%A2%98%E8%AE%BE%E7%BD%AE/</loc>
-    
-    <lastmod>2023-05-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wshuai.xyz/2022/12/13/KaTeX/</loc>
-    
-    <lastmod>2023-05-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wshuai.xyz/2022/01/22/Markdown/</loc>
-    
-    <lastmod>2023-05-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wshuai.xyz/2023/01/08/Openwrt%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</loc>
-    
-    <lastmod>2023-05-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wshuai.xyz/2022/01/05/Pytorch%E5%92%8CPycharm%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2023-05-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wshuai.xyz/2022/12/18/Qexo%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
     
     <lastmod>2023-05-15</lastmod>
@@ -156,6 +111,51 @@
   
   <url>
     <loc>https://www.wshuai.xyz/tools/index.html</loc>
+    
+    <lastmod>2023-05-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/2022/12/14/Butterfly%E4%B8%BB%E9%A2%98%E8%AE%BE%E7%BD%AE/</loc>
+    
+    <lastmod>2023-05-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/2022/12/13/KaTeX/</loc>
+    
+    <lastmod>2023-05-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/2022/01/22/Markdown/</loc>
+    
+    <lastmod>2023-05-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/2023/01/08/Openwrt%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</loc>
+    
+    <lastmod>2023-05-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/2022/01/05/Pytorch%E5%92%8CPycharm%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2023-05-15</lastmod>
     

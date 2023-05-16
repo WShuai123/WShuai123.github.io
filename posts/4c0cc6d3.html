@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>目标检测算法综述 | WShuai's Blog</title><meta name="author" content="WANG SHUAI"><meta name="copyright" content="WANG SHUAI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文总结了近十年来常用的目标检测算法的基本原理和结构。包括R-CNN,SPP-Net,Fast R-CNN,Faster R-CNN,YOLO,SSD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测算法综述">
+<meta property="og:url" content="https://www.wshuai.xyz/posts/4c0cc6d3.html">
+<meta property="og:site_name" content="WShuai&#39;s Blog">
+<meta property="og:description" content="本文总结了近十年来常用的目标检测算法的基本原理和结构。包括R-CNN,SPP-Net,Fast R-CNN,Faster R-CNN,YOLO,SSD">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212141846998.png">
+<meta property="article:published_time" content="2022-01-04T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-16T12:53:23.491Z">
+<meta property="article:author" content="WANG SHUAI">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="目标检测">
+<meta property="article:tag" content="综述">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212141846998.png"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212142327028.jpg"><link rel="canonical" href="https://www.wshuai.xyz/posts/4c0cc6d3"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="QQLZNEJsSY5ngJdXF4PTO99Q6-OZNluQXI9tKyM-Jcc"/><meta name="baidu-site-verification" content="code-1oXhvxtQ8X"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?88cc835581535e94792f5d4409abe67b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '目标检测算法综述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-16 12:53:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.1.0/lxgwwenkai-regular.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/202212171650567.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fa fa-book"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/tools/"><i class="fa-fw fa-solid fa-screwdriver-wrench"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-box"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://music.wshuai.xyz"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://alist.hkwsvps.top"><i class="fa-fw fa-fw fa-fw fas fa-clapperboard"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">WShuai's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fa fa-book"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/tools/"><i class="fa-fw fa-solid fa-screwdriver-wrench"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-box"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://music.wshuai.xyz"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://alist.hkwsvps.top"><i class="fa-fw fa-fw fa-fw fas fa-clapperboard"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">目标检测算法综述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-04T00:00:00.000Z" title="发表于 2022-01-04 00:00:00">2022-01-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-16T12:53:23.491Z" title="更新于 2023-05-16 12:53:23">2023-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/%E7%BB%BC%E8%BF%B0/">综述</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="目标检测算法综述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="目标检测算法发展历程">目标检测算法发展历程</h2>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/目标检测算法发展历程.png" alt="目标检测算法发展历程图">
+&emsp;2012年之前，都是传统的目标检测算法，传统的目标检测算法采用类似穷举的滑动窗口方式或图像分割技术来生成大量的候选区域，然后对每一个候选区域提取图像特征(包括HOG、SIFT、 Haar等)，并将这些特征传递给一个分类器(如 SVM、Adaboost和 Ｒandom Forest等) 用来判断该候选区域的类别．由于传统方法提取的特征存在局限性，产生候选区域的方法需要大量的计算开销，检测的精度和速度远远达不到实际应用的要求这使得传统目标检测技术研究陷入了瓶颈。
+&emsp;2012年后，将深度学习应用在目标检测领域，检测的速度和准确度有个飞速的进步，目标检测开始进去发展的新时期。
+<h2 id="R-CNN">R-CNN</h2>
+<p><em><a target="_blank" rel="noopener" href="https://sci-hub.se/10.1109/cvpr.2014.81">（原论文）</a></em></p>
+<p>  2014 年，Girshick 等人成功将卷积神经网络 ( Convolutional Neural Networks，CNN) 运用在目标检测领域中，提出了Ｒ-CNN 算法，它将 AlexNet与选择性搜索( selective search)算法相结合，把目标检测任务分解为若干个独立的步骤。</p>
+<h3 id="基本步骤">基本步骤</h3>
+<ul>
+<li>输入图像，利用SS算法在图片中找到2000个候选区域</li>
+<li>将2000个候选区域进行大小变换，得到固定尺寸227x227，然后输入到神经网络中，进行区域特征提取</li>
+<li>经过20个类别的SVM分类器，对于2000个候选区域进行判断，得到类别信息</li>
+<li>对候选区域做NMS，去除不好的，重叠度高的一些候选区域</li>
+<li>修正候选区域<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/R-CNN流程图.png" alt="R-CNN流程图"></li>
+</ul>
+<h3 id="部分概念">部分概念</h3>
+<p>(1)IoU<br>
+ 简单理解就是交并比，即：两个候选框的交集/并集。取值在0和1之间。<br>
+(2)NMS<br>
+ 非极大值抑制（Non-Maximum Suppression，NMS），顾名思义就是抑制不是极大值的元素，用于目标检测中，就是提取置信度高的目标检测框，而抑制置信度低的误检框。<br>
+它的基本步骤是:<br>
+  1.寻找得分最高的候选框；<br>
+  2.计算其他候选框与该候选框的IoU值；<br>
+  3.删除所有IoU值中大于给定阈值的候选框。<br>
+ IoU值大，说明这两个候选框重叠部分多，说明这两个候选框选定的是同一个目标，所以要删掉得分较低的候选框。</p>
+<h3 id="优缺点">优缺点</h3>
+<p>优点：<br>
+ 使目标检测的精度得到了质的改变，是将深度学习应用到目标检测领域的里程碑之 作，同时也奠定了基于深度学习的双阶段目标检测算法的基础。<br>
+缺点：<br>
+ 选出的区域多数都是互相重叠，重叠部分会被多次重复提取特征，导致重复计算，比较耗时。</p>
+<h2 id="SPP-Net">SPP-Net</h2>
+<p><em><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1406.4729">原论文</a></em></p>
+<p>2014 年 He 等人提出了空间金字塔网络( Spatial Pyramid Pooling Network，SPP-Net) 检测算法，它在 CNN 最后一层卷积层和全连接层之间加入 SPP 层，使得网络能够输入任意尺度的候选区域，从而每张输入图片只需一次 CNN 运算，就能得到所有候选区域的特征，这使得计算量大大减少。</p>
+<h3 id="基本步骤-2">基本步骤</h3>
+<ul>
+<li>图片输入网络，得到全图的feature map；</li>
+<li>原图经过SS算法得到的候选区域直接映射全图的feature map，得到每个候选区域的特征向量；</li>
+<li>映射出来的候选区域的特征向量经过SSP层，输出固定大小的特征向量给全连接层<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/SPP-Net.png" alt="SPP-Net流程图"></li>
+</ul>
+<h3 id="优缺点-2">优缺点</h3>
+<p>优点:<br>
+  引入了空间金字塔，适应各种不同尺寸的特征图；<br>
+  对整张图进行一次特征提取，加速运算速度，并提出了权重共享的策略。<br>
+缺点：<br>
+  分类器使用SVM，训练依然过慢，效率低；<br>
+  进行分阶段训练，训练步骤复杂。</p>
+<h2 id="Fast-R-CNN">Fast R-CNN</h2>
+<p><em><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1504.08083">原论文</a></em></p>
+<p>2015 年,Girshick 等人提出了Fast Ｒ-CNN算法,他们受到SPP-Net算法的启发,将SPP层简化成单尺度的ＲOI Pooling 层以统一候选区域特征的大小,而且进一步提出了多任务损失函数思想,将分类损失和边界框回归损失统一训练学习,使得分类和定位任务不仅可以共享卷积特征,还可以相互促进提升检测效果。</p>
+<h3 id="基本步骤-3">基本步骤</h3>
+<ul>
+<li>一张图片经过SS算法生成2k个候选区域</li>
+<li>整个图像输入卷积神经网络得到整个图像的feature map，将SS算法得到的候选框映射到feature map上得到每个候选区域的特征向量</li>
+<li>每个特征矩阵通过RoI pooling层缩放到7x7大小的特征图，接着展平特征图送入到一系列的全连接层。</li>
+</ul>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/Fast R-CNN.png" alt="Fast R-CNN" style="zoom: 67%;" />
+<h3 id="优缺点-3">优缺点</h3>
+<p>优点：</p>
+<ul>
+<li>使用Softmax去代替SVM进行多分类的预测，从而实现了端到端的训练；</li>
+<li>引入ROI pooling，速度更快<br>
+缺点：</li>
+<li>依然需要SS算法产生候选区域，速度慢。</li>
+</ul>
+<h2 id="Faster-R-CNN">Faster R-CNN</h2>
+<p><em><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2015/file/14bfa6bb14875e45bba028a21ed38046-Paper.pdf">原论文</a></em></p>
+<p>2015年Ｒen等人提出了 Faster Ｒ-CNN 算法框架 ,设计了辅助生成样本的ＲPN 取代选择性搜索算法。ＲPN是一种全卷积神经网络 (FCN) 结构,它将任意大小的特征图作为输入,经过卷积操作后产生一系列可能包含目标的候选区域,使算法实现了端到端的训练。</p>
+<h3 id="基本步骤-4">基本步骤</h3>
+<ul>
+<li>整张图像输入网络得到特征图feature map；</li>
+<li>使用RPN结构生成候选框，将RPN后生成的候选框映射到特征图上得到每个候选框的特征矩阵；</li>
+<li>将每个特征矩阵通过RoI pooling，得到7x7大小的特征图，接着展平特征图，通过一系列的全连接层得到预测结果</li>
+</ul>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/Faster R-CNN.png" style="zoom: 67%;" />	
+<h3 id="优缺点-4">优缺点</h3>
+<p>优点：</p>
+<ul>
+<li>ＲPN 的使用，使Faster Ｒ-CNN 能够将网络中区域建议、特征提取、分类及定位多个步骤整合到一起，真正成为端到端的训练。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>Faster Ｒ-CNN特征图上的一个锚点框对应于原图中一块较大区域，因此，Faster Ｒ-CNN对小目标检测效果不是很好。</li>
+</ul>
+<h2 id="YOLO">YOLO</h2>
+<p><em><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1506.02640.pdf">原论文</a></em></p>
+<p>2015年Redmon等人提出了YOLO算法，将分类、定位、检测功能融合在一个网络当中，输入图像只需要经过一次网络计算，就可以直接得到图像中目标的边界框和类别概率。</p>
+<h3 id="基本步骤-5">基本步骤</h3>
+<ul>
+<li>一幅图片分成s*s个网格（grid cell），如果某个目标的中心点落在某个网格里，那么该网络负责预测该物体。</li>
+<li>每个网格预测B个bounding box，每个bbox除了要预测bbox的位置外，还要预测一个置信度（confidence）的值每个网格还要预测c个类别的分数。</li>
+</ul>
+<p>原论文里，s = 7，B = 2，c = 20</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/yolov1流程.png" alt="yolov1流程" style="zoom:67%;" />
+<h3 id="网络结构">网络结构</h3>
+<p>整体结构：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/YOLOv1.png" alt="YOLOv1"></p>
+<p>最终输出7x7x30的张量的结构图为：</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/image-20220104190735017.png" alt="image-20220104190735017" style="zoom: 50%;" />
+<p>其中7为最初每张图片分成7x7个网格。每个bounding box预测四个位置信息，一个置信度信息，一个网格预测两个bounding box，所以，一个网格包含十个特征信息。又因为共预测20类目标，所以还有二十个类别信息，因此，一共20+10=30个信息。</p>
+<h3 id="优缺点-5">优缺点</h3>
+<p>优点：</p>
+<ul>
+<li>Yolo采用一个CNN网络来实现检测，是单阶段检测框架，所以Yolo算法比较简洁且速度快。</li>
+<li>由于Yolo是对整张图片做卷积，所以其在检测目标有更大的视野，它不容易对背景误判。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>虽然每个格子可以预测B个bounding box，但是最终只选择只选择IOU最高的bounding box作为物体检测输出，即每个格子最多只预测出一个物体。当物体占画面比例较小，或每个格子包含多个物体，但却只能检测出其中一个。这是YOLO方法的一个缺陷。</li>
+</ul>
+<h3 id="YOLO的演变">YOLO的演变</h3>
+<p>为了克服 YOLO v1 检测速度快，但检测精度低的问题， YOLO v2算法引入BN ( batch normalization) 、多尺度训练、锚框机制和细粒度特征等方法对YOLO v1 算法进行改进。YOLO v3算法在YOLO v2 的基础上，采用更好的主干网络、多尺度预测和 9 个锚框进行检测，使得检测算法在保证实时性的同时，精度提高。近几年又发展出了yolo v4，yolo v5网络。</p>
+<h2 id="SSD">SSD</h2>
+<p><em><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1512.02325.pdf">原论文</a></em></p>
+<p>2016 年 Liu 等人提出了 SSD 算法，在回归思想的基础上，有效结合多尺度检测的思想，提取多个不同尺度的特征图进行检测，遵循较大的特征图用来检测相对较小的目标，较小的特征图检测较大目标的策略，显著提高了对大目标的检测效果，对小目标检测也有一定的提升。</p>
+<h3 id="基本步骤-6">基本步骤</h3>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/image-20220104191429817.png" alt="image-20220104191429817"></p>
+<p>VGG-16模型：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/image-20220104191707498.png" alt="image-20220104191707498"></p>
+<h3 id="优缺点-6">优缺点</h3>
+<p>优点：</p>
+<ul>
+<li>将不同层次的特征图进行融合，提升了速度和检测精度。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>但 SSD 算法提取的不同卷积层特征独立输入各自的检测分支，容易出现同一个物体被不同大小的边界框同时检测出来的情况，即重复检测问题。而 且每层的检测分支仅关注自己分支上特定尺度的目标，没有考虑到 不同层、不同尺度目标间的关联性，所以对小目标检测效果一般。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.wshuai.xyz">WANG SHUAI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.wshuai.xyz/posts/4c0cc6d3.html">https://www.wshuai.xyz/posts/4c0cc6d3.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.wshuai.xyz" target="_blank">WShuai's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a><a class="post-meta__tags" href="/tags/%E7%BB%BC%E8%BF%B0/">综述</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/d87f7e0c.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/20221214120436.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">test</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/25aa6487.html" title="Pytorch和Pycharm的安装和配置"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212141843104.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-05</div><div class="title">Pytorch和Pycharm的安装和配置</div></div></a></div><div><a href="/posts/92e4ec52.html" title="混淆矩阵与评估指标"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212141844256.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-03</div><div class="title">混淆矩阵与评估指标</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wshuai-pic.oss-cn-beijing.aliyuncs.com/blog-pic/202212171650567.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">WANG SHUAI</div><div class="author-info__description">爱你所爱 行你所行<br>听从你心 无问西东</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/WShuai123" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hkwsvip@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">目标检测算法发展历程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#R-CNN"><span class="toc-number">2.</span> <span class="toc-text">R-CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.1.</span> <span class="toc-text">基本步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E6%A6%82%E5%BF%B5"><span class="toc-number">2.2.</span> <span class="toc-text">部分概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">2.3.</span> <span class="toc-text">优缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPP-Net"><span class="toc-number">3.</span> <span class="toc-text">SPP-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4-2"><span class="toc-number">3.1.</span> <span class="toc-text">基本步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-2"><span class="toc-number">3.2.</span> <span class="toc-text">优缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fast-R-CNN"><span class="toc-number">4.</span> <span class="toc-text">Fast R-CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4-3"><span class="toc-number">4.1.</span> <span class="toc-text">基本步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-3"><span class="toc-number">4.2.</span> <span class="toc-text">优缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Faster-R-CNN"><span class="toc-number">5.</span> <span class="toc-text">Faster R-CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4-4"><span class="toc-number">5.1.</span> <span class="toc-text">基本步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-4"><span class="toc-number">5.2.</span> <span class="toc-text">优缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#YOLO"><span class="toc-number">6.</span> <span class="toc-text">YOLO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4-5"><span class="toc-number">6.1.</span> <span class="toc-text">基本步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-number">6.2.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-5"><span class="toc-number">6.3.</span> <span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YOLO%E7%9A%84%E6%BC%94%E5%8F%98"><span class="toc-number">6.4.</span> <span class="toc-text">YOLO的演变</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSD"><span class="toc-number">7.</span> <span class="toc-text">SSD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4-6"><span class="toc-number">7.1.</span> <span class="toc-text">基本步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-6"><span class="toc-number">7.2.</span> <span class="toc-text">优缺点</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/86bdb3b3.html" title="Openwrt配置Sakura内网穿透服务"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202302062126401.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Openwrt配置Sakura内网穿透服务"/></a><div class="content"><a class="title" href="/posts/86bdb3b3.html" title="Openwrt配置Sakura内网穿透服务">Openwrt配置Sakura内网穿透服务</a><time datetime="2023-01-08T00:00:00.000Z" title="发表于 2023-01-08 00:00:00">2023-01-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/83840fea.html" title="Qexo使用教程"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://unpkg.com/qexo-static@1.4.0/assets/img/brand/qexo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Qexo使用教程"/></a><div class="content"><a class="title" href="/posts/83840fea.html" title="Qexo使用教程">Qexo使用教程</a><time datetime="2022-12-18T00:00:00.000Z" title="发表于 2022-12-18 00:00:00">2022-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/18287.html" title="Butterfly博客配置美化记录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212141838168.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Butterfly博客配置美化记录"/></a><div class="content"><a class="title" href="/posts/18287.html" title="Butterfly博客配置美化记录">Butterfly博客配置美化记录</a><time datetime="2022-12-14T00:00:00.000Z" title="发表于 2022-12-14 00:00:00">2022-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/62fa3cda.html" title="KaTeX 常用语法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212141841225.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="KaTeX 常用语法"/></a><div class="content"><a class="title" href="/posts/62fa3cda.html" title="KaTeX 常用语法">KaTeX 常用语法</a><time datetime="2022-12-13T00:00:00.000Z" title="发表于 2022-12-13 00:00:00">2022-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/92e4ec52.html" title="混淆矩阵与评估指标"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/WShuai123/blogimages@main/img/202212141844256.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="混淆矩阵与评估指标"/></a><div class="content"><a class="title" href="/posts/92e4ec52.html" title="混淆矩阵与评估指标">混淆矩阵与评估指标</a><time datetime="2022-12-03T00:00:00.000Z" title="发表于 2022-12-03 00:00:00">2022-12-03</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By WANG SHUAI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/KaTeX/latest/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.wshuai.xyz/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.wshuai.xyz/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="/js/ali_font.js"></script><!-- hexo injector body_end end --></body></html>

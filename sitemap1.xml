@@ -38,15 +38,6 @@
   </url>
   
   <url>
-    <loc>https://www.wshuai.xyz/posts/e3e72ea6.html</loc>
-    
-    <lastmod>2023-06-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wshuai.xyz/posts/d87f7e0c.html</loc>
     
     <lastmod>2023-06-08</lastmod>
@@ -92,6 +83,15 @@
   </url>
   
   <url>
+    <loc>https://www.wshuai.xyz/posts/e3e72ea6.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.wshuai.xyz/posts/86bdb3b3.html</loc>
     
     <lastmod>2023-06-08</lastmod>
@@ -111,6 +111,33 @@
   
   <url>
     <loc>https://www.wshuai.xyz/posts/5d36ff15.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/guestbook/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/tags/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wshuai.xyz/tools/index.html</loc>
     
     <lastmod>2023-06-08</lastmod>
     
@@ -147,33 +174,6 @@
   
   <url>
     <loc>https://www.wshuai.xyz/categories/index.html</loc>
-    
-    <lastmod>2023-06-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wshuai.xyz/guestbook/index.html</loc>
-    
-    <lastmod>2023-06-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wshuai.xyz/tags/index.html</loc>
-    
-    <lastmod>2023-06-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wshuai.xyz/tools/index.html</loc>
     
     <lastmod>2023-06-08</lastmod>
     

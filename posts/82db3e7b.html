@@ -1,0 +1,376 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【Docker项目】Reader开源 | WShuai's Blog</title><meta name="author" content="WANG SHUAI"><meta name="copyright" content="WANG SHUAI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一个开源的网页阅读器，支持多用户管理、书源导入、听书等功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Docker项目】Reader开源">
+<meta property="og:url" content="https://www.wshuai.xyz/posts/82db3e7b.html">
+<meta property="og:site_name" content="WShuai&#39;s Blog">
+<meta property="og:description" content="一个开源的网页阅读器，支持多用户管理、书源导入、听书等功能。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/searxng/searxng@master/src/brand/searxng.svg">
+<meta property="article:published_time" content="2023-06-24T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-24T12:42:08.678Z">
+<meta property="article:author" content="WANG SHUAI">
+<meta property="article:tag" content="Reader">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/searxng/searxng@master/src/brand/searxng.svg"><link rel="shortcut icon" href="https://oss.wshuai.xyz/blog-pic/202305181439950.jpg"><link rel="canonical" href="https://www.wshuai.xyz/posts/82db3e7b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><meta name="google-site-verification" content="QQLZNEJsSY5ngJdXF4PTO99Q6-OZNluQXI9tKyM-Jcc"/><meta name="baidu-site-verification" content="code-1oXhvxtQ8X"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?88cc835581535e94792f5d4409abe67b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Docker项目】Reader开源',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-24 12:42:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.1.0/lxgwwenkai-regular.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202212171650567.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fa fa-book"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/tools/"><i class="fa-fw fa-solid fa-screwdriver-wrench"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-box"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://music.nice2cu.cc"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://alist.nice2cu.cc"><i class="fa-fw fa-fw fa-fw fas fa-clapperboard"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">WShuai's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fa fa-book"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/tools/"><i class="fa-fw fa-solid fa-screwdriver-wrench"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fa-fw fas fa-box"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://music.nice2cu.cc"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://alist.nice2cu.cc"><i class="fa-fw fa-fw fa-fw fas fa-clapperboard"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 豆瓣</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【Docker项目】Reader开源</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-24T00:00:00.000Z" title="发表于 2023-06-24 00:00:00">2023-06-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-24T12:42:08.678Z" title="更新于 2023-06-24 12:42:08">2023-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Docker/">Docker</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="项目介绍">项目介绍</h2>
+<p>阅读是一款提供网络文学搜索的工具，为广大网络文学爱好者提供一种方便、快捷舒适的试读体验。</p>
+<p>实现了移动端适配，手势支持，添加书籍源，可以自定义主题和css样式，支持WebDAV同步和听书。。。。</p>
+<p>官方GitHub仓库：</p>
+<a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/hectorqin/reader"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=hectorqin&repo=reader&show_owner=true"/></a>
+<p>官方DockerHub仓库：<a target="_blank" rel="noopener" href="https://hub.docker.com/r/hectorqin/reader">https://hub.docker.com/r/hectorqin/reader</a></p>
+<p>官方Demo: <a target="_blank" rel="noopener" href="https://reader.htmake.com">https://reader.htmake.com</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/hectorqin/reader@master/imgs/1.jpg" alt=""></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/hectorqin/reader@master/imgs/2.jpg" alt=""></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/hectorqin/reader@master/imgs/3.jpg" alt=""></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/hectorqin/reader@master/imgs/5.jpg" alt=""></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/hectorqin/reader@master/imgs/8.jpg" alt=""></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/hectorqin/reader@master/imgs/10.jpg" alt=""></p>
+<h2 id="项目搭建">项目搭建</h2>
+<ol>
+<li>创建安装目录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> root/docker_data/reader</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>进入创建的文件夹，新建<code>docker-compose.yml</code>文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> root/docker_data/reader</span><br><span class="line">vim docker-compose.yml</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>讲一下内容添加到<code>yml</code>文件中</li>
+</ol>
+<p>因为不想使用webview书源和watchtower自动更新，因此将他们注释掉了。</p>
+<p>更多的</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.1&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="comment"># reader 在线阅读</span></span><br><span class="line"><span class="comment"># 公开服务器(服务器位于日本)：[https://reader.nxnow.top](https://reader.nxnow.top) 测试账号/密码分别为guest/guest123，也可自行创建账号添加书源，不定期删除长期未登录账号(2周)</span></span><br><span class="line"><span class="comment"># 阅读官方书源 : [https://legado.pages.dev](https://legado.pages.dev) 或者 [http://legado.git.llc](https://legado.pages.dev) 点击打开连接，添加远程书源即可</span></span><br><span class="line"><span class="comment"># 公众号汇总 : [https://mp.weixin.qq.com/s/5t8nfSnRfHjJNAvT76fA_A](https://mp.weixin.qq.com/s/5t8nfSnRfHjJNAvT76fA_A)</span></span><br><span class="line"><span class="comment"># 手动更新方式 : docker-compose pull &amp;&amp; docker-compose up -d</span></span><br><span class="line">  <span class="attr">reader:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">hectorqin/reader</span></span><br><span class="line">    <span class="comment">#image: hectorqin/reader:openj9-latest #docker镜像，arm64架构或小内存机器优先使用此镜像.启用需删除上一行</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">reader</span> <span class="comment">#容器名 可自行修改</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">4396</span><span class="string">:8080</span> <span class="comment">#4396端口映射可自行修改</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">share_net</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./logs:/logs</span> <span class="comment">#log映射目录</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./storage:/storage</span> <span class="comment">#数据映射目录</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">SPRING_PROFILES_ACTIVE=prod</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">READER_APP_USERLIMIT=50</span> <span class="comment">#用户上限,默认50</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">READER_APP_USERBOOKLIMIT=500</span> <span class="comment">#用户书籍上限,默认200</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">READER_APP_CACHECHAPTERCONTENT=true</span> <span class="comment">#开启缓存章节内容 V2.0</span></span><br><span class="line">      <span class="comment"># 如果启用远程webview，需要取消注释下面的 remote-webview 服务</span></span><br><span class="line">      <span class="comment"># - READER_APP_REMOTEWEBVIEWAPI=http://remote-webview:8050 #开启远程webview</span></span><br><span class="line">      <span class="comment"># 下面都是多用户模式配置</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">READER_APP_SECURE=true</span> <span class="comment">#开启登录鉴权，开启后将支持多用户模式</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">READER_APP_SECUREKEY=changeme</span>  <span class="comment">#管理员密码  建议修改</span></span><br><span class="line"><span class="comment">#      - READER_APP_INVITECODE=registercode #注册邀请码 建议修改,如不需要可注释或删除</span></span><br><span class="line">  <span class="comment"># remote-webview:</span></span><br><span class="line">  <span class="comment">#   image: hectorqin/remote-webview</span></span><br><span class="line">  <span class="comment">#   container_name: remote-webview #容器名 可自行修改</span></span><br><span class="line">  <span class="comment">#   restart: always</span></span><br><span class="line">  <span class="comment">#   ports:</span></span><br><span class="line">  <span class="comment">#     - 8050:8050</span></span><br><span class="line">  <span class="comment">#   networks:</span></span><br><span class="line">  <span class="comment">#     - share_net</span></span><br><span class="line"><span class="comment"># 自动更新docker镜像</span></span><br><span class="line"><span class="comment">#  watchtower:</span></span><br><span class="line"><span class="comment">#    image: containrrr/watchtower</span></span><br><span class="line"><span class="comment">#    container_name: watchtower</span></span><br><span class="line"><span class="comment">#    restart: always</span></span><br><span class="line"><span class="comment">#    # 环境变量,设置为上海时区</span></span><br><span class="line"><span class="comment">#    environment:</span></span><br><span class="line"><span class="comment">#        - TZ=Asia/Shanghai</span></span><br><span class="line"><span class="comment">#    volumes:</span></span><br><span class="line"><span class="comment">#      - /var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line"><span class="comment">#    command: reader watchtower --cleanup --schedule &quot;0 0 4 * * *&quot;</span></span><br><span class="line"><span class="comment">#    networks:</span></span><br><span class="line"><span class="comment">#      - share_net</span></span><br><span class="line"><span class="comment">#    # 仅更新reader与watchtower容器,如需其他自行添加 &#x27;容器名&#x27; ,如:reader watchtower nginx</span></span><br><span class="line"><span class="comment">#    # --cleanup 更新后清理旧版本镜像</span></span><br><span class="line"><span class="comment">#    # --schedule 自动检测更新 crontab定时(限定6位crontab) 此处代表凌晨4点整</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">share_net:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+<p>更多可选的参数</p>
+<ol start="4">
+<li><code>yaml</code>文件路径下，运行以下代码，运行docker容器</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>
+<p>容器运行后使用<code>ip:4396</code>即可访问Reader。如果不能访问，请查看防火墙是否放行该端口(腾讯云，阿里云，华为云，甲骨文等服务器提供商需在控制台面板手动关闭防火墙并放行端口)。如果配置了反代，则通过域名就可以访问。</p>
+</li>
+<li>
+<p>更新命令</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> root/docker_data/reader</span><br><span class="line">docker-compose up -d	<span class="comment"># 重新拉取镜像并运行镜像</span></span><br><span class="line">docker image prune	<span class="comment"># 删除旧版本的镜像</span></span><br></pre></td></tr></table></figure>
+<h2 id="反向代理">反向代理</h2>
+<p>查看<a target="_blank" rel="noopener" href="https://blog.nice2cu.cc/posts/86753994.html">【Docker项目】Nginx Proxy Manager反向代理)</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202306242038279.png" alt=""></p>
+<h2 id="书籍源">书籍源</h2>
+<p>精品书源GitHub仓库：</p>
+<a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/XIU2/Yuedu"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://github-readme-stats.vercel.app/api/pin/?username=XIU2&repo=Yuedu&show_owner=true"/></a>
+<p>书源分享地址：<a target="_blank" rel="noopener" href="https://yuedu.xiu2.xyz">https://yuedu.xiu2.xyz</a></p>
+<p>打开网址，复制书源链接，打开reader的远程书源，粘贴，根据需要选择要添加的书源，点击确定。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202306242022254.png" alt=""></p>
+<h2 id="多用户">多用户</h2>
+<p>Reader支持多用户，他人可以注册使用。邀请码为<code>docker-compose.yml</code>文件中的<code>READER_APP_INVITECODE</code>，如果没设置邀请码则留空。</p>
+<p>在用户空间-进入管理模式，输入<code>docker-compose.yml</code>文件中设置的密码可以进入管理员权限，可以查看所有注册的用户以及分配权限。建议在管理模式中将自己账号的书源设置为默认书源，这样别人注册使用就不需要再配置读书源。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202306242034239.png" alt=""></p>
+<h2 id="更多功能">更多功能</h2>
+<p>更多功能，如：</p>
+<ul>
+<li>本地书仓</li>
+<li>自定义阅读主题</li>
+<li>自定义样式</li>
+<li>WebDav</li>
+<li>。。。等</li>
+</ul>
+<p>各功能的介绍和使用详见官方doc文档：<a target="_blank" rel="noopener" href="https://github.com/hectorqin/reader/blob/master/doc.md">https://github.com/hectorqin/reader/blob/master/doc.md</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.wshuai.xyz">WANG SHUAI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.wshuai.xyz/posts/82db3e7b.html">https://www.wshuai.xyz/posts/82db3e7b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.wshuai.xyz" target="_blank">WShuai's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Reader/">Reader</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/e41f857a.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://raw.githubusercontent.com/searxng/searxng/master/src/brand/searxng.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【Docker项目】SearXNG自建搜索引擎</div></div></a></div><div class="next-post pull-right"><a href="/posts/86753994.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202306241654646.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【Docker项目】Nginx Proxy Manager反向代理</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202212171650567.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">WANG SHUAI</div><div class="author-info__description">爱你所爱 行你所行<br>听从你心 无问西东</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/WShuai123" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hkwsvip@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">项目介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">项目搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">反向代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A6%E7%B1%8D%E6%BA%90"><span class="toc-number">4.</span> <span class="toc-text">书籍源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%94%A8%E6%88%B7"><span class="toc-number">5.</span> <span class="toc-text">多用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E5%8A%9F%E8%83%BD"><span class="toc-number">6.</span> <span class="toc-text">更多功能</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/86753994.html" title="【Docker项目】Nginx Proxy Manager反向代理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202306241654646.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Docker项目】Nginx Proxy Manager反向代理"/></a><div class="content"><a class="title" href="/posts/86753994.html" title="【Docker项目】Nginx Proxy Manager反向代理">【Docker项目】Nginx Proxy Manager反向代理</a><time datetime="2023-06-24T00:00:00.000Z" title="发表于 2023-06-24 00:00:00">2023-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/82db3e7b.html" title="【Docker项目】Reader开源"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/searxng/searxng@master/src/brand/searxng.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Docker项目】Reader开源"/></a><div class="content"><a class="title" href="/posts/82db3e7b.html" title="【Docker项目】Reader开源">【Docker项目】Reader开源</a><time datetime="2023-06-24T00:00:00.000Z" title="发表于 2023-06-24 00:00:00">2023-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/e41f857a.html" title="【Docker项目】SearXNG自建搜索引擎"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://raw.githubusercontent.com/searxng/searxng/master/src/brand/searxng.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Docker项目】SearXNG自建搜索引擎"/></a><div class="content"><a class="title" href="/posts/e41f857a.html" title="【Docker项目】SearXNG自建搜索引擎">【Docker项目】SearXNG自建搜索引擎</a><time datetime="2023-06-24T00:00:00.000Z" title="发表于 2023-06-24 00:00:00">2023-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8b599c5f.html" title="Linux下Docker的配置及常用镜像"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202305201645240.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux下Docker的配置及常用镜像"/></a><div class="content"><a class="title" href="/posts/8b599c5f.html" title="Linux下Docker的配置及常用镜像">Linux下Docker的配置及常用镜像</a><time datetime="2023-05-19T00:00:00.000Z" title="发表于 2023-05-19 00:00:00">2023-05-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c0f5883f.html" title="Nginx反向代理配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://oss.wshuai.xyz/blog-pic/202305201654396.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nginx反向代理配置"/></a><div class="content"><a class="title" href="/posts/c0f5883f.html" title="Nginx反向代理配置">Nginx反向代理配置</a><time datetime="2023-05-19T00:00:00.000Z" title="发表于 2023-05-19 00:00:00">2023-05-19</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By WANG SHUAI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://npm.elemecdn.com/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.js"><script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.wshuai.xyz/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.wshuai.xyz/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/twikoo/1.4.18/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script async src="https://analysis.nice2cu.cc/script.js" data-website-id="fb8b8249-3e23-48d5-87d3-4202caab0064"></script><script id="click-heart" src="https://npm.elemecdn.com/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

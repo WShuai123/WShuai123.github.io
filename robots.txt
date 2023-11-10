@@ -12,6 +12,6 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: https://blog.nice2cu.cc/sitemap.xml
-Sitemap: https://blog.nice2cu.cc/sitemap.txt
-Sitemap: https://blog.nice2cu.cc/baidusitemap.xml
+Sitemap: https://hexo.nice2cu.cc/sitemap.xml
+Sitemap: https://hexo.nice2cu.cc/sitemap.txt
+Sitemap: https://hexo.nice2cu.cc/baidusitemap.xml
